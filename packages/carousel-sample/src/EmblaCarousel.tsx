@@ -1,12 +1,12 @@
 import React from 'react'
-import { EmblaOptionsType } from 'embla-carousel'
+import { EmblaOptionsType } from '@/embla-carousel/src/index'
 import { DotButton, useDotButton } from './EmblaCarouselDotButton'
 import {
   PrevButton,
   NextButton,
   usePrevNextButtons
 } from './EmblaCarouselArrowButtons'
-import useEmblaCarousel from 'embla-carousel-react'
+import useEmblaCarousel from '@/useEmblaCarousel'
 
 type PropType = {
   slides: number[]

@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "embla-carousel": "1.0.0",
-    "embla-carousel-react": "1.0.0",
+    "embla-carousel-forked": "*",
+    "embla-carousel-react-forked": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

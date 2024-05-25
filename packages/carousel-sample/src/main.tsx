@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import EmblaCarousel from './EmblaCarousel'
-import { EmblaOptionsType } from 'embla-carousel'
+import { EmblaOptionsType } from '@/embla-carousel/src/index'
 import Header from './Header'
 import Footer from './Footer'
-import '../css/base.css'
-import '../css/sandbox.css'
-import '../css/embla.css'
+import './css/base.css'
+import './css/sandbox.css'
+import './css/embla.css'
 
 const OPTIONS: EmblaOptionsType = { align: 'start' }
 const SLIDE_COUNT = 6
