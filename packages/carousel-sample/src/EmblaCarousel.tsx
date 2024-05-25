@@ -1,5 +1,5 @@
 import React from 'react'
-import { EmblaOptionsType } from '@/embla-carousel/src/index'
+import { EmblaOptionsType } from '@/embla-carousel'
 import { DotButton, useDotButton } from './EmblaCarouselDotButton'
 import {
   PrevButton,
