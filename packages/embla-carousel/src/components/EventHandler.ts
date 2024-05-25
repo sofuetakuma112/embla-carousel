@@ -46,12 +46,12 @@ export function EventHandler(): EventHandlerType {
   }
 
   function on(evt: EmblaEventType, cb: CallbackType): EventHandlerType {
-    listeners[evt] = getListeners(evt).concat([cb])
+    listeners[evt] = getListeners(evt).concat([cb]) // listeners[evt]の末尾に新しいCallbackTypeを追加する
     return self
   }
 
   function off(evt: EmblaEventType, cb: CallbackType): EventHandlerType {
-    listeners[evt] = getListeners(evt).filter((e) => e !== cb)
+    listeners[evt] = getListeners(evt).filter((e) => e !== cb) // listeners[evt]から指定のCallbackTypeを削除する
     return self
   }
 

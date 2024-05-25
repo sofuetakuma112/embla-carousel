@@ -32,15 +32,15 @@ export type EmblaCarouselType = {
 }
 
 function EmblaCarousel(
-  root: HTMLElement,
+  root: HTMLElement, // viewport
   userOptions?: EmblaOptionsType,
   userPlugins?: EmblaPluginType[]
 ): EmblaCarouselType {
-  const ownerDocument = root.ownerDocument
+  const ownerDocument = root.ownerDocument // ルートの要素
   const ownerWindow = <WindowType>ownerDocument.defaultView
   const optionsHandler = OptionsHandler(ownerWindow)
   const pluginsHandler = PluginsHandler(optionsHandler)
-  const mediaHandlers = EventStore()
+  const mediaHandlers = EventStore() // イベントリスナーを管理するストア
   const eventHandler = EventHandler()
   const { mergeOptions, optionsAtMedia, optionsMediaQueries } = optionsHandler
   const { on, off, emit } = eventHandler
@@ -59,21 +59,29 @@ function EmblaCarousel(
   function storeElements(): void {
     const { container: userContainer, slides: userSlides } = options
 
+    // userContainer が文字列（セレクタ）である場合は、root 要素内でセレクタを使って指定された要素を検索します。
+    // 文字列でない場合（既に要素が直接指定されている場合）は、その要素自体を使います。
     const customContainer = isString(userContainer)
       ? root.querySelector(userContainer)
       : userContainer
+    // customContainer が存在する場合、それを container として設定します。
+    // 存在しない場合は、root の最初の子要素を container として設定します。
     container = <HTMLElement>(customContainer || root.children[0])
 
+    // userSlides が文字列（セレクタ）である場合は、container 要素内でセレクタを使ってスライド要素を全て検索します。
+    // 文字列でない場合（既に要素の配列が直接指定されている場合）は、その配列自体を使います。
     const customSlides = isString(userSlides)
       ? container.querySelectorAll(userSlides)
       : userSlides
+    // customSlides が存在する場合、それを Array.prototype.slice.call を使って配列形式に変換します。
+    // 存在しない場合は、container の全子要素を配列形式に変換して slides として保存します。
     slides = <HTMLElement[]>[].slice.call(customSlides || container.children)
   }
 
   function createEngine(options: OptionsType): EngineType {
     const engine = Engine(
       root,
-      container,
+      container, // カスタムコンテナを指定しない限りはviewport（refを渡したDOM）が渡される
       slides,
       ownerDocument,
       ownerWindow,
@@ -123,13 +131,14 @@ function EmblaCarousel(
     pluginApis = pluginsHandler.init(self, pluginList)
   }
 
+  // emblaApiがインスタンス化された後に、useEffectで呼ばれる
   function reActivate(
     withOptions?: EmblaOptionsType,
     withPlugins?: EmblaPluginType[]
   ): void {
     const startIndex = selectedScrollSnap()
     deActivate()
-    activate(mergeOptions({ startIndex }, withOptions), withPlugins)
+    activate(mergeOptions({ startIndex }, withOptions), withPlugins) // ここでEngineの初期化も行なっている
     eventHandler.emit('reInit')
   }
 

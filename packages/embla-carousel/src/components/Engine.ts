@@ -73,10 +73,11 @@ export type EngineType = {
   slideRects: NodeRectType[]
 }
 
+// スクロールの制御、アニメーション、イベントハンドリングを行う
 export function Engine(
   root: HTMLElement,
   container: HTMLElement,
-  slides: HTMLElement[],
+  slides: HTMLElement[], // デフォルトでは、container の全子要素の配列
   ownerDocument: Document,
   ownerWindow: WindowType,
   options: OptionsType,
@@ -93,7 +94,7 @@ export function Engine(
     dragFree,
     dragThreshold,
     inViewThreshold,
-    slidesToScroll: groupSlides,
+    slidesToScroll: groupSlides, // 一度にviewportに表示するスライドの枚数？（デフォルトは1）
     skipSnaps,
     containScroll,
     watchResize,
@@ -104,12 +105,12 @@ export function Engine(
   // Measurements
   const pixelTolerance = 2
   const nodeRects = NodeRects()
-  const containerRect = nodeRects.measure(container)
+  const containerRect = nodeRects.measure(container) // viewportの要素の幅と高さ、カルーセル内での位置を計測
   const slideRects = slides.map(nodeRects.measure)
-  const axis = Axis(scrollAxis, direction)
-  const viewSize = axis.measureSize(containerRect)
+  const axis = Axis(scrollAxis, direction) // スクロール軸（垂直または水平）の管理
+  const viewSize = axis.measureSize(containerRect) // コンテナ要素の横幅
   const percentOfView = PercentOfView(viewSize)
-  const alignment = Alignment(align, viewSize)
+  const alignment = Alignment(align, viewSize) // スライド要素をviewport上のどこに配置するかを管理（デフォルトはcenter）
   const containSnaps = !loop && !!containScroll
   const readEdgeGap = loop || !!containScroll
   const { slideSizes, slideSizesWithGaps, startGap, endGap } = SlideSizes(
@@ -119,7 +120,7 @@ export function Engine(
     slides,
     readEdgeGap,
     ownerWindow
-  )
+  ) // スライドサイズの計測と管理
   const slidesToScroll = SlidesToScroll(
     axis,
     viewSize,
@@ -130,7 +131,7 @@ export function Engine(
     startGap,
     endGap,
     pixelTolerance
-  )
+  ) // スライドグループのサイズに基づいてスライドをグループ化
   const { snaps, snapsAligned } = ScrollSnaps(
     axis,
     alignment,
