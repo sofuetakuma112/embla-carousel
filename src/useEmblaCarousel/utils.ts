@@ -1,4 +1,4 @@
-import { EmblaPluginType } from 'embla-carousel'
+import { EmblaPluginType } from '@/embla-carousel'
 
 export function isObject(subject: unknown): subject is Record<string, unknown> {
   return Object.prototype.toString.call(subject) === '[object Object]'

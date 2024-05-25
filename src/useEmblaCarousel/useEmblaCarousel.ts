@@ -4,7 +4,7 @@ import EmblaCarousel, {
   EmblaCarouselType,
   EmblaOptionsType,
   EmblaPluginType
-} from 'embla-carousel'
+} from '@/embla-carousel'
 
 type EmblaViewportRefType = <ViewportElement extends HTMLElement>(
   instance: ViewportElement | null
