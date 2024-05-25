@@ -7,10 +7,10 @@ export default defineConfig({
   resolve: {
     // ↓ 追記
     alias: {
-      "@/": `${__dirname}/src/`, // path.join(__dirname, "src/") でも可
-    },
+      '@/': `${__dirname}/src/` // path.join(__dirname, "src/") でも可
+    }
     // alias: [
     //   { find: "~/", replacement: `${__dirname}/src/` }
     // ],
-  },
+  }
 })
